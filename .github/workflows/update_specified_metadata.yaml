@@ -13,12 +13,16 @@ env:
   KPM_REPO: "kcllang"
 
 jobs:
-  build:
+  publish_pkg:
     runs-on: ubuntu-latest
     name: Update Specified Package Info on AH 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
       with:
         go-version: 1.21
     

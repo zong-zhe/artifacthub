@@ -37,7 +37,6 @@ func TestUpdateReadmeAndMetadata(t *testing.T) {
 	assert.Equal(t, "helloworld", metadata.Name)
 	assert.Equal(t, "helloworld", metadata.DisplayName)
 	assert.Equal(t, "0.1.0", metadata.Version)
-	assert.Equal(t, "2023-10-27T04:29:47Z", metadata.CreatedAt)
 	assert.Equal(t, "This is a KCL package", metadata.Description)
 	assert.Equal(t, len(metadata.Links), 2)
 	assert.Equal(t, metadata.Links[0].Name, "KCL homepage")

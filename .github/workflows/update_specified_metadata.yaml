@@ -34,25 +34,19 @@ jobs:
 
     - name: Republish to docker.io
       run: |
-        FILE_PATH=${{ github.event.inputs.myInput }}
-        PARENT_DIR=$(dirname "$FILE_PATH")
-        cd "$PARENT_DIR"
-        kpm push
+        find ${{ github.event.inputs.myInput }} -name "kcl.mod" -execdir bash -c 'echo Pushing in directory: "$PWD" && kpm push || echo Failed to push in directory: "$PWD"' \;
     
     - name: Republish to ghcr.io
       run: |
         kpm login -u ${{ secrets.DEPLOY_ACCESS_NAME }} -p ${{ secrets.DEPLOY_ACCESS_TOKEN }} ghcr.io
-        FILE_PATH=${{ github.event.inputs.myInput }}
-        PARENT_DIR=$(dirname "$FILE_PATH")
-        cd "$PARENT_DIR"
-        kpm push
+        find ${{ github.event.inputs.myInput }} -name "kcl.mod" -execdir bash -c 'echo Pushing in directory: "$PWD" && kpm push || echo Failed to push in directory: "$PWD"' \;
       env:
         KPM_REG: "ghcr.io"
         KPM_REPO: "kcl-lang"
 
     - name: Regenerate artifacthub-pkg.yaml
       run: |
-        go run main.go "${{ github.event.inputs.myInput }}"
+        find ${{ github.event.inputs.myInput }} -name "kcl.mod" -exec bash -c 'file="{}" && echo Running for file: "$file" && go run main.go "$file" || echo Failed to run for file: "$file"' \;
 
     - name: Commit and push changes
       run: |

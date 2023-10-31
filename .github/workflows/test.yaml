@@ -2,8 +2,6 @@ name: Test Generate Metadata
 
 on:
   push:
-    branches:
-      - main
 
 jobs:
   test:

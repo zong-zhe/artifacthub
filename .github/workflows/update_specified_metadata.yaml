@@ -46,15 +46,15 @@ jobs:
         KPM_REG: "ghcr.io"
         KPM_REPO: "kcl-lang"
 
-      - name: Regenerate artifacthub-pkg.yaml
-        run: |
-          go run main.go "${{ github.event.inputs.myInput }}"
+    - name: Regenerate artifacthub-pkg.yaml
+      run: |
+        go run main.go "${{ github.event.inputs.myInput }}"
 
-      - name: Commit and push changes
-        run: |
-          git config --global user.name 'GitHub Action'
-          git config --global user.email 'action@github.com'
+    - name: Commit and push changes
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
 
-          git add .
-          git commit -m "Regenerate artifacthub-pkg.yaml"
-          git push
+        git add .
+        git commit -m "Regenerate artifacthub-pkg.yaml"
+        git push

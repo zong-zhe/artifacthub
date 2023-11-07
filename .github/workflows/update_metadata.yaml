@@ -7,7 +7,7 @@ on:
 
 env:
   KPM_REG: "docker.io"
-  KPM_REPO: "kcllang"
+  KPM_REPO: "zongzhe"
 
 jobs:
   publish_pkg:
@@ -32,7 +32,7 @@ jobs:
         run: go install kcl-lang.io/kpm@latest
 
       - name: Login
-        run: kpm login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} docker.io
+        run: kpm login -u ${{ secrets.D_NAME }} -p ${{ secrets.D_TOKEN }} docker.io
 
       - name: Get changed files
         id: changed-files
@@ -46,13 +46,13 @@ jobs:
 
       - name: Publish to ghcr.io
         run: |
-          kpm login -u ${{ secrets.DEPLOY_ACCESS_NAME }} -p ${{ secrets.DEPLOY_ACCESS_TOKEN }} ghcr.io
+          kpm login -u ${{ secrets.G_NAME }} -p ${{ secrets.G_TOKEN }} ghcr.io
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             ./scripts/push_pkg_from.sh $file
           done
         env:
           KPM_REG: "ghcr.io"
-          KPM_REPO: "kcl-lang"
+          KPM_REPO: "zong-zhe"
 
       - name: Update artifacthub-pkg.yaml
         run: |

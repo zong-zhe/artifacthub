@@ -79,7 +79,7 @@ func UpdateReadmeAndMetadata(pkgPath string, allowUserMetadataOverride bool) err
 
 	pkgName := kclPkg.GetPkgName()
 	pkgTag := kclPkg.GetPkgVersion()
-	ahDir := filepath.Join(pkgPath, pkgTag)
+	ahDir := filepath.Join(pkgPath, ".ah", pkgTag)
 
 	err = os.MkdirAll(ahDir, 0755)
 	if err != nil {
